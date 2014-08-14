@@ -91,7 +91,7 @@ class WebvttRegion
 
     public function setScroll($_scroll)
     {
-        if (in_array($_scroll, ['up', 'none'])) {
+        if (in_array($_scroll, array('up', 'none'))) {
             $this->scroll = $_scroll;
         }
 

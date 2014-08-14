@@ -75,11 +75,11 @@ abstract class Cue implements CueInterface
 
     public function setLineEnding($_lineEnding)
     {
-        $lineEndings = [
+        $lineEndings = array(
             File::UNIX_LINE_ENDING,
             File::MAC_LINE_ENDING,
             File::WINDOWS_LINE_ENDING
-        ];
+        );
 
         if (!in_array($_lineEnding, $lineEndings)) {
             return;
