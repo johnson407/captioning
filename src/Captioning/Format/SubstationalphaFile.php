@@ -115,7 +115,7 @@ class SubstationalphaFile extends File
     public function parse()
     {
         $handle = fopen($this->filename, "r");
-        $parsing_errors = [];
+        $parsing_errors = array();
 
         if ($handle) {
             while (($line = fgets($handle)) !== false) {

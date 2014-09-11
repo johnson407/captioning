@@ -8,9 +8,32 @@ use Captioning\Format\WebvttFile;
 use Captioning\Format\WebvttCue;
 use Captioning\Format\SubstationalphaFile;
 use Captioning\Format\SubstationalphaCue;
+use Captioning\Format\MicrodvdCue;
+use Captioning\Format\MicrodvdFile;
 
 class Converter
 {
+    /* microdvd converters*/
+    public static function microdvd2subrip(MicrodvdFile $_microdvd){
+        $srt = new SubripFile();
+        foreach ($_microdvd->getCues() as $cue) {
+            $text = str_replace('|', "\r\n", $cue->getText(true));
+            $srt->addCue($text, SubripCue::ms2tc($cue->getStartMS()), SubripCue::ms2tc($cue->getStopMS()));
+        }
+        return $srt;
+    }
+    
+    public static function microdvd2webvtt(SubripFile $_srt)
+    {
+        $vtt = new WebvttFile();
+        foreach ($_srt->getCues() as $cue) {
+            $text = str_replace('|', "\r\n", $cue->getText(true));
+            $vtt->addCue($text, SubripCue::ms2tc($cue->getStartMS(), '.'), SubripCue::ms2tc($cue->getStopMS(), '.'));
+        }
+
+        return $vtt;
+    }
+
     /* subrip converters */
     public static function subrip2webvtt(SubripFile $_srt)
     {
